@@ -36,6 +36,6 @@ exports.getMovies = (req, res, next) => {
 
 	Movie
 		.find()
-		.then(r => { res.status(201).json(r); })
+		.then(r => { res.status(200).json(r); })
 		.catch(e => { res.status(500).json(e); })
 }

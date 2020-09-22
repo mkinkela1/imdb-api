@@ -40,6 +40,9 @@ app.use((req, res, next) => {
 /*
 * import routers here
 */
+const movie = require('./api/routes/MovieRoutes');
+
+app.use('/api/movie', movie);
 
 app.use((req,res,next) => {
 	const error = new Error('Not found');
