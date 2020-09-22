@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const {validationResult} = require('express-validator');
 const Movie = require('./../models/movie');
 
 /**
@@ -11,18 +11,23 @@ const Movie = require('./../models/movie');
  */
 exports.createMovie = (req, res, next) => {
 
-	const { Title, DateRequested } = req.body;
+	try {
 
-	const movie = new Movie({
-		_id: new mongoose.Types.ObjectId(),
-		Title,
-		DateRequested
-	});
+		const {Title, DateRequested} = req.body;
 
-	movie
-		.save()
-		.then(r => { res.status(201).json(r); })
-		.catch(e => { res.status(500).json(e); })
+		const movie = new Movie({
+			_id: new mongoose.Types.ObjectId(),
+			Title,
+			DateRequested
+		});
+
+		movie
+			.save()
+			.then(r => { res.status(201).json(r); })
+			.catch(e => { res.status(500).json(e); })
+	} catch(e) {
+		res.status(422).json(e);
+	}
 }
 
 /**
